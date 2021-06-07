@@ -12,6 +12,22 @@ import ysoserial.payloads.util.PayloadRunner;
 import ysoserial.payloads.util.Reflections;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
+/*
+ * Chain - by Xiaopan233
+ *   PriorityQueue.readObject()
+ *   PriorityQueue.heapify()
+ *   PriorityQueue.siftDown()
+ *   PriorityQueue.siftDownUsingComparator()
+ *       BeanComparator.compare()
+ *           PropertyUtils.getProperty()
+ *           PropertyUtilsBean.getProperty()
+ *               PropertyUtilsBean.getNestedProperty()
+ *               PropertyUtilsBean.getSimpleProperty()
+ *                   PropertyUtilsBean.invokeMethod()
+ *                       TemplatesImpl.getOutputProperties()
+ *                           TemplatesImpl.newInstance()
+ *                           ......
+ * */
 @Dependencies({"commons-beanutils:commons-beanutils:1.9.2", "commons-collections:commons-collections:3.1", "commons-logging:commons-logging:1.2"})
 @Authors({ Authors.FROHOFF })
 public class CommonsBeanutils1 implements ObjectPayload<Object> {
