@@ -27,6 +27,8 @@ import ysoserial.payloads.util.Reflections;
  *                       TemplatesImpl.getOutputProperties()
  *                           TemplatesImpl.newInstance()
  *                           ......
+ *
+ * commons-beanutils 1.8.x - 1.9.x is ok
  * */
 @Dependencies({"commons-beanutils:commons-beanutils:1.9.2", "commons-collections:commons-collections:3.1", "commons-logging:commons-logging:1.2"})
 @Authors({ Authors.FROHOFF })
