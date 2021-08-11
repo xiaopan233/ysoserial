@@ -64,6 +64,7 @@ public class CommonsCollections1 extends PayloadRunner implements ObjectPayload<
 					new Class[] { String.class }, execArgs),
 				new ConstantTransformer(1) };
 
+
 		final Map innerMap = new HashMap();
 
 		final Map lazyMap = LazyMap.decorate(innerMap, transformerChain);
