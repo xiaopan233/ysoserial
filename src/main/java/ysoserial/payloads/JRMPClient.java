@@ -14,7 +14,6 @@ import ysoserial.payloads.annotation.Authors;
 import ysoserial.payloads.annotation.PayloadTest;
 import ysoserial.payloads.util.PayloadRunner;
 
-
 /**
  *
  *
